@@ -1,13 +1,5 @@
-import { cart , addToCart, updateCartQty } from "../data/cart.js";
+import { cart, addToCart, updateCartQty } from "../data/cart.js";
 import { products } from "../data/products.js";
-
-
-
-
-
-
-
-
 
 let productsHTML = "";
 
@@ -71,21 +63,22 @@ const addToCartBtn = document.querySelectorAll(".js-add-to-cart");
 
 addToCartBtn.forEach((button) => {
   button.addEventListener("click", () => {
-
-    const {productId} = button.dataset;
+    const { productId } = button.dataset;
 
     const qty = document.querySelector(
       `.js-quantity-selector-${productId}`
     ).value;
 
-    document.querySelector(`.js-add-visible-${productId}`).classList.add("visible");
-    setTimeout(()=>{
-      document.querySelector(`.js-add-visible-${productId}`).classList.remove("visible");
-    }, 2000)
-    
-    
-    addToCart(productId, qty);
-    updateCartQty()
+    document
+      .querySelector(`.js-add-visible-${productId}`)
+      .classList.add("visible");
+    setTimeout(() => {
+      document
+        .querySelector(`.js-add-visible-${productId}`)
+        .classList.remove("visible");
+    }, 2000);
 
+    addToCart(productId, qty);
+    updateCartQty();
   });
 });
