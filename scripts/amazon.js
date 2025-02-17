@@ -1,3 +1,14 @@
+import { cart , addToCart, updateCartQty } from "../data/cart.js";
+import { products } from "../data/products.js";
+
+
+
+
+
+
+
+
+
 let productsHTML = "";
 
 products.forEach((product) => {
@@ -42,7 +53,7 @@ products.forEach((product) => {
 
           <div class="product-spacer"></div>
 
-          <div class="added-to-cart">
+          <div class="added-to-cart js-add-visible-${product.id}">
             <img src="images/icons/checkmark.png">
             Added
           </div>
@@ -60,34 +71,21 @@ const addToCartBtn = document.querySelectorAll(".js-add-to-cart");
 
 addToCartBtn.forEach((button) => {
   button.addEventListener("click", () => {
-    const productId = button.dataset.productId;
+
+    const {productId} = button.dataset;
 
     const qty = document.querySelector(
       `.js-quantity-selector-${productId}`
     ).value;
 
-    let matchingItem;
+    document.querySelector(`.js-add-visible-${productId}`).classList.add("visible");
+    setTimeout(()=>{
+      document.querySelector(`.js-add-visible-${productId}`).classList.remove("visible");
+    }, 2000)
+    
+    
+    addToCart(productId, qty);
+    updateCartQty()
 
-    cart.forEach((item) => {
-      if (item.productId === productId) {
-        matchingItem = item;
-      }
-    });
-    if (matchingItem) {
-      matchingItem.quantity += Number(qty);
-    } else {
-      cart.push({
-        productId: productId,
-        quantity: Number(qty),
-      });
-    }
-
-    let cartQuantity = 0;
-
-    cart.forEach((item) => {
-      cartQuantity += item.quantity;
-    });
-
-    document.querySelector(".js-cart-quantity").innerHTML = cartQuantity;
   });
 });
