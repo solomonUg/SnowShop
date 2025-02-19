@@ -1,8 +1,9 @@
-import { cart, addToCart, updateCartQty } from "../data/cart.js";
+import { cart, addToCart, calculateCartQty } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 
 let productsHTML = "";
+calculateCartQty();
 
 products.forEach((product) => {
   productsHTML =
@@ -80,6 +81,6 @@ addToCartBtn.forEach((button) => {
     }, 2000);
 
     addToCart(productId, qty);
-    updateCartQty();
+    calculateCartQty();
   });
 });

@@ -1,4 +1,5 @@
 export let cart = JSON.parse(localStorage.getItem('cart')) 
+
   if (!cart) {
    cart = [
       {
@@ -35,15 +36,36 @@ export function addToCart(productId, qty) {
   saveToLocalStorage();
 }
 
-export function updateCartQty() {
+export function calculateCartQty() {
   let cartQuantity = 0;
 
   cart.forEach((item) => {
     cartQuantity += item.quantity;
   });
+
   saveToLocalStorage();
-  document.querySelector(".js-cart-quantity").innerHTML = cartQuantity;
+  document.querySelector(".js-cart-quantity").textContent = cartQuantity;
 }
+
+
+export function updateCartQuantity (productID, newQuantity) {
+  let matchingProduct;
+  
+  cart.forEach((cartItem)=>{
+    
+    if (cartItem.productId===productID){
+      matchingProduct = cartItem;
+    }
+  })
+  console.log("matching product:", matchingProduct)
+  matchingProduct.quantity = newQuantity;
+  console.log("new quantity:", newQuantity)
+  console.log(matchingProduct)
+  
+  saveToLocalStorage()
+}
+
+
 
 export function removeFromCart (productId) {
   const newCart = cart.filter((cartItem)=>(cartItem.productId !== productId))
