@@ -57,11 +57,7 @@ export function updateCartQuantity (productID, newQuantity) {
       matchingProduct = cartItem;
     }
   })
-  console.log("matching product:", matchingProduct)
-  matchingProduct.quantity = newQuantity;
-  console.log("new quantity:", newQuantity)
-  console.log(matchingProduct)
-  
+  matchingProduct.quantity = newQuantity;  
   saveToLocalStorage()
 }
 

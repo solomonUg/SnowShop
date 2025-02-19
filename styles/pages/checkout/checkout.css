@@ -105,8 +105,17 @@
 }
 
 .quantity-input {
-  width: 30px;
+  width: 32px;
   display: none;
+}
+
+.invalid-text{
+  display: none;
+}
+.quantity-invalid {
+  display: initial;
+  color: red;
+  font-size: 0.7rem;
 }
 
 .save-quantity-link {
