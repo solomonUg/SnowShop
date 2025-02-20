@@ -1,4 +1,4 @@
-import { cart, calculateCartQty, updateCartQuantity } from "../data/cart.js";
+import { cart, calculateCartQty, updateCartQuantity, validateInputQty } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 import { removeFromCart } from "../data/cart.js";
@@ -50,7 +50,7 @@ cart.forEach((cartItem) => {
                   }">
                     Update
                   </span> 
-                  <input type="number" class="quantity-input  js-quantity-input-${matchingProduct.id}"/> 
+                  <input type="number" class="quantity-input  js-quantity-input-${matchingProduct.id}" data-product-id="${matchingProduct.id}"/> 
                   <span class=" invalid-text js-invalid-text-${matchingProduct.id}">invalid input</span>
                   <span class="save-quantity-link link-primary" data-product-Id="${
                     matchingProduct.id
@@ -113,6 +113,7 @@ cart.forEach((cartItem) => {
     `;
   document.querySelector(".js-order-summary").innerHTML = cartSummaryHTML;
 
+    // get the save link and remove the is-editing event listener
   document.querySelectorAll(".save-quantity-link").forEach((saveLink) => {
     saveLink.addEventListener("click", () => {
       const productId = saveLink.dataset.productId;
@@ -123,23 +124,24 @@ cart.forEach((cartItem) => {
         document.querySelector(`.js-quantity-input-${productId}`).value
       );
 
-      // key down evwnt
-
-
       // validates the input to ensure it is not less than 0 or greater than 1000
-      if (updatedQty > 0 && updatedQty <= 1000) {
-        updateCartQuantity(productId, updatedQty);
-        document.querySelector(`.js-quantity-label-${productId}`).innerHTML =
-        updatedQty;
-        calculateCartQty();
-        document.querySelector(`.js-invalid-text-${productId}`).classList.remove('quantity-invalid')
-      } else {
-        document.querySelector(`.js-invalid-text-${productId}`).classList.add('quantity-invalid')
-        alert('Quantity must be at least 0 and less than 1000');
-        return;
-      }
+      validateInputQty(productId, updatedQty)
     });
   });
+
+    // key down event
+    document.querySelectorAll('.quantity-input').forEach((inputLink)=>{
+      inputLink.addEventListener('keydown', (e)=>{
+        if(e.key === 'Enter'){
+          e.preventDefault();
+          const productId = inputLink.dataset.productId;
+         const updatedQty = Number(document.querySelector(`.js-quantity-input-${productId}`).value) 
+          console.log("pressed enter for", updatedQty);
+                // validates the input to ensure it is not less than 0 or greater than 1000
+            validateInputQty(productId, updatedQty)
+        }
+      })
+    })
 
   const deleteLinkEls = document.querySelectorAll(".js-delete-link");
   deleteLinkEls.forEach((delLink) => {
@@ -164,7 +166,6 @@ cart.forEach((cartItem) => {
     });
   });
 
-  // get the save link and remove the is-editing event listener
 
  
 });

@@ -70,3 +70,17 @@ export function removeFromCart (productId) {
   saveToLocalStorage();
 }
 
+ export function validateInputQty( productId, updatedQty) {
+  if (updatedQty > 0 && updatedQty <= 1000) {
+    updateCartQuantity(productId, updatedQty);
+    document.querySelector(`.js-quantity-label-${productId}`).innerHTML =
+    updatedQty;
+    calculateCartQty();
+    document.querySelector(`.js-invalid-text-${productId}`).classList.remove('quantity-invalid')
+  } else {
+    document.querySelector(`.js-invalid-text-${productId}`).classList.add('quantity-invalid')
+    alert('Quantity must be at least 0 and less than 1000');
+    return;
+  }
+}
+
