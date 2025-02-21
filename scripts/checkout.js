@@ -2,6 +2,8 @@ import { cart, calculateCartQty, updateCartQuantity, validateInputQty } from "..
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 import { removeFromCart } from "../data/cart.js";
+import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js'; 
+
 
 let cartSummaryHTML = "";
 
@@ -111,6 +113,12 @@ cart.forEach((cartItem) => {
             </div>
           </div>
     `;
+
+
+    function deliveryOptionHTML() {
+    
+    
+    }
   document.querySelector(".js-order-summary").innerHTML = cartSummaryHTML;
 
     // get the save link and remove the is-editing event listener
@@ -136,7 +144,6 @@ cart.forEach((cartItem) => {
           e.preventDefault();
           const productId = inputLink.dataset.productId;
          const updatedQty = Number(document.querySelector(`.js-quantity-input-${productId}`).value) 
-          console.log("pressed enter for", updatedQty);
                 // validates the input to ensure it is not less than 0 or greater than 1000
             validateInputQty(productId, updatedQty)
         }
