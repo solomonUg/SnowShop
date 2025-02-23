@@ -1,4 +1,4 @@
-import { cart, calculateCartQty, updateCartQuantity, validateInputQty } from "../data/cart.js";
+import { cart, calculateCartQty, validateInputQty, updateDelivertOption } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 import { removeFromCart } from "../data/cart.js";
@@ -29,12 +29,9 @@ cart.forEach((cartItem) => {
     }
   })
   
-  console.log(" matching one",matchingDeliveryOption)
   const today = dayjs();
   const deliveryDate = today.add(matchingDeliveryOption.deliveryDays, 'days');
   const dateString = deliveryDate.format('dddd, MMMM D');
-
-  console.log(dateString)
 
 
   cartSummaryHTML =
@@ -106,7 +103,7 @@ cart.forEach((cartItem) => {
       
 
         HTML +=
-        `<div class="delivery-option">
+        `<div class="delivery-option js-delivery-option" data-product-id ='${matchingProduct.id}'  data-delivery-option-id ="${option.id}">
                   <input type="radio" ${isChecked ?'checked' : ''}
                     class="delivery-option-input"
                     name="delivery-option-${matchingProduct.id}">
@@ -179,8 +176,14 @@ cart.forEach((cartItem) => {
         .classList.add("is-editing-quantity");
     });
   });
-
-
  
 });
+
+document.querySelectorAll('.js-delivery-option').forEach((element)=>{
+  element.addEventListener('click', ()=>{
+
+    const {productId, deliveryOptionId} = element.dataset
+    updateDelivertOption(productId, deliveryOptionId);
+  })
+})
 
