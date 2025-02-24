@@ -23,7 +23,6 @@ const taxCents = totalBeforeTax * 0.1;
 const totalCents = totalBeforeTax + taxCents;
 
 const paymentSummaryHTML = `
-<div class="payment-summary">
           <div class="payment-summary-title">
             Order Summary
           </div>
@@ -61,5 +60,3 @@ const paymentSummaryHTML = `
 document.querySelector('.js-payment-summary').innerHTML = paymentSummaryHTML;
 
 }  
-
-re
