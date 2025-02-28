@@ -49,7 +49,8 @@ export function calculateCartQty() {
   });
 
   saveToLocalStorage();
-  document.querySelector(".js-cart-quantity").textContent = cartQuantity;
+
+  return cartQuantity;
 }
 
 
@@ -82,6 +83,7 @@ export function removeFromCart (productId) {
     updatedQty;
     calculateCartQty();
     document.querySelector(`.js-invalid-text-${productId}`).classList.remove('quantity-invalid')
+  
   } else {
     document.querySelector(`.js-invalid-text-${productId}`).classList.add('quantity-invalid')
     alert('Quantity must be at least 0 and less than 1000');

@@ -5,6 +5,10 @@ import { formatCurrency } from "./utils/money.js";
 let productsHTML = "";
 calculateCartQty();
 
+
+document.querySelector(".js-header-cart-quantity").innerHTML = calculateCartQty();
+
+
 products.forEach((product) => {
   productsHTML =
     productsHTML +
@@ -82,5 +86,7 @@ addToCartBtn.forEach((button) => {
 
     addToCart(productId, qty);
     calculateCartQty();
+    document.querySelector(".js-header-cart-quantity").innerHTML = calculateCartQty();
+
   });
 });

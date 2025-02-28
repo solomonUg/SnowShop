@@ -2,33 +2,36 @@ import { cart } from "../../data/cart.js";
 import { getDeliveryOption } from "../../data/deliveryOptions.js";
 import { getMatchingProduct } from "../../data/products.js";
 import { formatCurrency } from "../utils/money.js";
+import { calculateCartQty } from "../../data/cart.js";
 
 
-export function renderPaymentSummary(){
-    let productPriceCents = 0 ;
+export function renderPaymentSummary() {
+    let productPriceCents = 0;
     let shippingPriceCents = 0;
 
-cart.forEach((cartItem )=> {
-    const product = getMatchingProduct(cartItem.productId)
-    productPriceCents += product.priceCents * cartItem.quantity;
+    cart.forEach((cartItem) => {
+        const product = getMatchingProduct(cartItem.productId)
+        productPriceCents += product.priceCents * cartItem.quantity;
 
 
-    const deliveryOption = getDeliveryOption(cartItem.deliveryOptionId);
-    shippingPriceCents += deliveryOption.deliveryPriceCents
-});
+        const deliveryOption = getDeliveryOption(cartItem.deliveryOptionId);
+        shippingPriceCents += deliveryOption.deliveryPriceCents
+    });
 
 
-const totalBeforeTax = productPriceCents + shippingPriceCents;
-const taxCents = totalBeforeTax * 0.1;
-const totalCents = totalBeforeTax + taxCents;
+    const totalBeforeTax = productPriceCents + shippingPriceCents;
+    const taxCents = totalBeforeTax * 0.1;
+    const totalCents = totalBeforeTax + taxCents;
 
-const paymentSummaryHTML = `
+    const cartQuantity = calculateCartQty();
+
+    const paymentSummaryHTML = `
           <div class="payment-summary-title">
             Order Summary
           </div>
 
           <div class="payment-summary-row">
-            <div>Items (3):</div>
+            <div>Items (${cartQuantity}):</div>
             <div class="payment-summary-money">$${formatCurrency(productPriceCents)}</div>
           </div>
 
@@ -57,6 +60,6 @@ const paymentSummaryHTML = `
           </button>
 `
 
-document.querySelector('.js-payment-summary').innerHTML = paymentSummaryHTML;
+    document.querySelector('.js-payment-summary').innerHTML = paymentSummaryHTML;
 
 }  
