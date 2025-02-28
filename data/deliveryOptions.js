@@ -1,3 +1,5 @@
+import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
+
 export const deliveryOptions = [
   {
     id: '1',
@@ -18,14 +20,21 @@ export const deliveryOptions = [
 ];
 
 
-export function getDeliveryOption(deliveryOptionId ){
+export function getDeliveryOption(deliveryOptionId) {
   let matchingDeliveryOption;
-  
-      deliveryOptions.forEach((option) => {
-        if (option.id === deliveryOptionId) {
-          matchingDeliveryOption = option;
-        }
-      });
 
-      return matchingDeliveryOption || deliveryOptions[0];
+  deliveryOptions.forEach((option) => {
+    if (option.id === deliveryOptionId) {
+      matchingDeliveryOption = option;
+    }
+  });
+
+  return matchingDeliveryOption || deliveryOptions[0];
+}
+
+export function calculateDeliveryDate(deliveryOption) {
+  const today = dayjs();
+  const deliveryDate = today.add(deliveryOption.deliveryDays, "days");
+
+  return deliveryDate;
 }

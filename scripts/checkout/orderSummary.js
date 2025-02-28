@@ -11,6 +11,7 @@ import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
 import {
   deliveryOptions,
   getDeliveryOption,
+  calculateDeliveryDate
 } from "../../data/deliveryOptions.js";
 import { renderPaymentSummary } from "./paymentSummary.js";
 import { renderCheckoutHeader } from "./checkoutHeader.js";
@@ -28,8 +29,10 @@ export function renderOrderSummary() {
 
     const matchingDeliveryOption = getDeliveryOption(deliveryOptionId);
 
-    const today = dayjs();
-    const deliveryDate = today.add(matchingDeliveryOption.deliveryDays, "days");
+    
+
+    
+    const deliveryDate = calculateDeliveryDate(matchingDeliveryOption);
     const dateString = deliveryDate.format("dddd, MMMM D");
 
     cartSummaryHTML =
@@ -95,8 +98,9 @@ export function renderOrderSummary() {
       let HTML = "";
 
       deliveryOptions.forEach((option) => {
-        const today = dayjs();
-        const deliveryDate = today.add(option.deliveryDays, "days");
+
+        const deliveryDate = calculateDeliveryDate(option);
+
         const dateString = deliveryDate.format("dddd, MMMM D");
 
         const isChecked = option.id === cartItem.deliveryOptionId;
