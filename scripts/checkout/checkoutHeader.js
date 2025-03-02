@@ -9,7 +9,7 @@ export function renderCheckoutHeader() {
     <div class="header-content">
         <div class="checkout-header-left-section">
           <a href="amazon.html">
-            <img class="amazon-logo" src="images/amazon-logo.png">
+            <img class="amazon-logo" src="images/snowmartlog2.jpg">
             <img class="amazon-mobile-logo" src="images/amazon-mobile-logo.png">
           </a>
         </div>
