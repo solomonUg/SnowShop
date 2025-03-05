@@ -5,15 +5,46 @@
   padding-right: 15px;
 
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: space-between;
-
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  height: 60px;
+  /* height: 60px; */
 }
+
+.desktop-display-bar{
+  display: flex;
+  color: white;
+  padding-left: 15px;
+  padding-right: 15px;
+  align-items: center;
+  justify-content: space-between;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  width: 100%;
+}
+
+.mobile-bar {
+  display: none;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  background-color: blue;
+}
+
+.search-bar-display-mobile {
+  flex: 1;
+  max-width: 850px;
+  display: flex;
+}
+
+
 
 .amazon-header-left-section {
   width: 180px;
@@ -146,4 +177,16 @@
   
   width: 26px;
   text-align: center;
+}
+
+
+@media screen and (max-width: 450px) {
+  .mobile-bar {
+      display: flex;
+  }
+
+  .amazon-header-middle-section {
+    display: none;
+  }
+  
 }
