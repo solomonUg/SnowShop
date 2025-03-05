@@ -99,7 +99,8 @@ renderProducts(products);
 
 // Search bar functionality
 const searchBar = document.querySelector('.search-bar');
-searchBar.addEventListener('keyup', (e) => {
+
+searchBar.addEventListener('input', (e) => {
   const value = e.target.value.toLowerCase();
 
   if (value) {
@@ -111,3 +112,5 @@ searchBar.addEventListener('keyup', (e) => {
     renderProducts(products);
   }
 });
+
+
