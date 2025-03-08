@@ -5,15 +5,14 @@ import { formatCurrency } from "./utils/money.js";
 let productsHTML = "";
 calculateCartQty();
 
-document.querySelector(".js-header-cart-quantity").innerHTML = calculateCartQty();
+document.querySelector(".js-header-cart-quantity").innerHTML =
+  calculateCartQty();
 
 // Function to render products
 function renderProducts(productsToRender) {
-
   let productsHTML = ""; // Reset the productsHTML variable
   productsToRender.forEach((product) => {
-    productsHTML +=
-      `<div class="product-container">
+    productsHTML += `<div class="product-container">
             <div class="product-image-container">
               <img class="product-image"
                 src="${product.image}">
@@ -89,44 +88,48 @@ function renderProducts(productsToRender) {
 
       addToCart(productId, qty);
       calculateCartQty();
-      document.querySelector(".js-header-cart-quantity").innerHTML = calculateCartQty();
+      document.querySelector(".js-header-cart-quantity").innerHTML =
+        calculateCartQty();
     });
   });
+}
+
+// function that filters products
+function filterProducts(value) {
+  if (value) {
+    const filteredProducts = products.filter((product) =>
+      product.name.toLowerCase().includes(value)
+    );
+    renderProducts(filteredProducts);
+  } else {
+    renderProducts(products);
+  }
 }
 
 // Initial render of all products
 renderProducts(products);
 
 // Search bar functionality
-const searchBar = document.querySelector('.search-bar');
+const searchBar = document.querySelector(".search-bar");
 
-searchBar.addEventListener('input', (e) => {
+searchBar.addEventListener("input", (e) => {
   const value = e.target.value.toLowerCase();
-
-  if (value) {
-    const filteredProducts = products.filter(
-      (product) => product.name.toLowerCase().includes(value)
-    );
-    renderProducts(filteredProducts);
-  } else {
-    renderProducts(products);
-  }
+  filterProducts(value);
 });
 
-const searchBtnEl = document.querySelector('.js-search-btn');
-searchBtnEl.addEventListener('touchend', (e)=>{
-    e.preventDefault();
-    const value = searchBar.value.toLowerCase();
-  
-    if (value) {
-      const filteredProducts = products.filter(
-        (product) => product.name.toLowerCase().includes(value)
-      );
-      renderProducts(filteredProducts);
-    } else {
-      renderProducts(products);
-    }
-}) 
+// for mobile screens
+const mobileSearchBtnEl = document.querySelector(".mobile-search-btn");
+const mobileInputEl = document.querySelector(".mobile-search-input");
 
+mobileSearchBtnEl.addEventListener("click", (e) => {
+  e.preventDefault();
+  const value = mobileInputEl.value.toLowerCase();
+  console.log("clicked", mobileInputEl.value);
+  filterProducts(value);
+});
 
-
+mobileInputEl.addEventListener("input", (e) => {
+  const value = e.target.value.toLowerCase();
+  e.preventDefault();
+  filterProducts(value);
+});
