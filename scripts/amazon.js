@@ -113,5 +113,19 @@ searchBar.addEventListener('input', (e) => {
   }
 });
 
+const searchBtnEl = document.querySelector('.js-search-btn');
+searchBtnEl.addEventListener('click', ()=>{
+    const value = searchBar.value.toLowerCase();
+  
+    if (value) {
+      const filteredProducts = products.filter(
+        (product) => product.name.toLowerCase().includes(value)
+      );
+      renderProducts(filteredProducts);
+    } else {
+      renderProducts(products);
+    }
+}) 
+
 
 
