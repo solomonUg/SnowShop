@@ -114,7 +114,8 @@ searchBar.addEventListener('input', (e) => {
 });
 
 const searchBtnEl = document.querySelector('.js-search-btn');
-searchBtnEl.addEventListener('click', ()=>{
+searchBtnEl.addEventListener('touchend', (e)=>{
+    e.preventDefault();
     const value = searchBar.value.toLowerCase();
   
     if (value) {
